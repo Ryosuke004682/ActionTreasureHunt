@@ -6,14 +6,17 @@ using UnityEngine.Playables;
 
 public class TimeLineForPlayer : MonoBehaviour
 {
-    public string tagName = "Player";
 
-    public void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
-        if(other.gameObject.tag == tagName)
+        if(other.gameObject.CompareTag("Player"))
         {
-            var animPlay = other.gameObject.GetComponent<Animator>();
-            animPlay.Play("Animation_1");
+            var anim = other.gameObject.AddComponent<Animator>();
+            anim.Play("Animation_1");
+        }
+        else
+        {
+           // Destroy(other.gameObject.Animator);
         }
     }
 }

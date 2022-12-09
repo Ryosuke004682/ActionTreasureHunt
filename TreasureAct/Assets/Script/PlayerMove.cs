@@ -24,10 +24,6 @@ public class PlayerMove : MonoBehaviour
 
     RaycastHit _hit;
     Ray _ray;
-
-    
-
-
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
