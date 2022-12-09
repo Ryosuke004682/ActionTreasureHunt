@@ -13,10 +13,7 @@ public class PlayerMove : MonoBehaviour
     [Header("Playerにかかる重力パラメーター")]
     public float gravity         = 9.8f;
     public float groundDragPower = 5.0f; //引力とする。
-
     public bool groundCheck      = true;
-
-
     public float rayDistance = 0.5f;
 
     private float _horizontal;
@@ -28,6 +25,9 @@ public class PlayerMove : MonoBehaviour
     RaycastHit _hit;
     Ray _ray;
 
+    
+
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -36,15 +36,14 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
-        InputMove();
+        InputMove();  
     }
 
     private void FixedUpdate()
     {
-
         GetGravity_Cheack();
-    }
 
+    }
     void InputMove()
     {
 
@@ -80,9 +79,7 @@ public class PlayerMove : MonoBehaviour
         //レイの設定
         _ray = new Ray(transform.position ,Vector3.down);
         Debug.DrawRay(transform.position , Vector3.down * rayDistance , Color.red);
-
-      
-
     }
 
+  
 }
