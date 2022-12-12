@@ -6,17 +6,38 @@ using UnityEngine.Playables;
 
 public class TimeLineForPlayer : MonoBehaviour
 {
+    public PlayableDirector director;
+    public bool timeLine = false;
+    public GameObject obj;
 
-    private void OnCollisionEnter(Collision other)
+     void Start()
     {
-        if(other.gameObject.CompareTag("Player"))
+        director = GetComponent<PlayableDirector>();
+    }
+
+     void Update()
+    {
+        obj.SetActive(false);
+    }
+
+     void OnCollisionEnter(Collision other)
+    {
+        if(timeLine && other.gameObject.CompareTag("Player"))
         {
-            var anim = other.gameObject.AddComponent<Animator>();
-            anim.Play("Animation_1");
-        }
-        else
-        {
-           // Destroy(other.gameObject.Animator);
+            Debug.Log("ìñÇΩÇ¡ÇƒÇ‹Ç∑ÅB");
+            timeLine = true;
+            obj.SetActive(true);
         }
     }
+
+    void PlayTimeLine()
+    {
+        director.Play();
+    }
+    void StopTimeLine()
+    {
+        director.Stop();
+    }
+
+
 }
