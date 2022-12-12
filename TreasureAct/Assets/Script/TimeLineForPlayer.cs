@@ -1,40 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Playables;
 
 public class TimeLineForPlayer : MonoBehaviour
 {
+    //このスクリプトがアタッチしているオブジェクトに
+    //Playerタグがついたオブジェクトが接したら、TimeLineを再生したい。
+
+    public GameObject camera;
     public PlayableDirector director;
-    public bool timeLine = false;
-    public GameObject obj;
+    public string nameTag = "Player";
+    bool actChecker = false;
+    bool cameraActive = true;
 
-     void Start()
+    private void Start()
     {
-        director = GetComponent<PlayableDirector>();
+        if (actChecker == true)
+            director = GetComponent<PlayableDirector>();
+
+        if (cameraActive == false)
+            camera = GetComponent<GameObject>();
     }
 
-     void Update()
+    private void OnTriggerStay(Collider other)
     {
-        obj.SetActive(false);
-    }
-
-     void OnCollisionEnter(Collision other)
-    {
-        if(timeLine && other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag(nameTag) && Input.GetKey(KeyCode.Space))
         {
-            Debug.Log("当たってます。");
-            timeLine = true;
-            obj.SetActive(true);
+                Debug.Log("当たってるぜ");
+                
+                TimeLineStart();
+                actChecker   = true;
+                cameraActive = false;
+        }
+        else 
+        {
+            TimeLineStop();
+            actChecker   = false;
+            cameraActive = true;
         }
     }
 
-    void PlayTimeLine()
+
+    void TimeLineStart()
     {
         director.Play();
     }
-    void StopTimeLine()
+
+    void TimeLineStop()
     {
         director.Stop();
     }
