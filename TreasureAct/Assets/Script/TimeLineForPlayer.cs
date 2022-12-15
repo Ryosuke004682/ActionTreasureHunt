@@ -10,19 +10,15 @@ public class TimeLineForPlayer : MonoBehaviour
     //このスクリプトがアタッチしているオブジェクトに
     //Playerタグがついたオブジェクトが接したら、TimeLineを再生したい。
 
-    public GameObject camera;
     public PlayableDirector director;
     public string nameTag = "Player";
     bool actChecker = false;
-    bool cameraActive = true;
+    
 
     private void Start()
     {
         if (actChecker == true)
             director = GetComponent<PlayableDirector>();
-
-        if (cameraActive == false)
-            camera = GetComponent<GameObject>();
     }
 
     private void OnTriggerStay(Collider other)
@@ -33,13 +29,13 @@ public class TimeLineForPlayer : MonoBehaviour
                 
                 TimeLineStart();
                 actChecker   = true;
-                cameraActive = false;
+                
         }
         else 
         {
             TimeLineStop();
             actChecker   = false;
-            cameraActive = true;
+            
         }
     }
 
